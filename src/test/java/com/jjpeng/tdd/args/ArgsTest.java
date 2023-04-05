@@ -12,6 +12,25 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class ArgsTest {
 
+    // 第一个测试用例进行功能拆分后应该需要实现的功能：
+    // Single Option:
+    // TODO： - Bool -l
+    // TODO： - Integer -p 8080
+    // TODO： - String -d /usr/logs
+
+    // Multiple Options:
+    // TODO： -l -p 8080 -d /usr/logs
+
+    // Sad path:
+    // TODO: - Bool -l t / -l t f
+    // TODO: - Integer -p 8080 8081
+    // TODO: - String -d / -d /usr/logs /usr/vars
+
+    // default value:
+    // TODO: - Bool -l:false
+    // TODO: - Integer -p:0
+    // TODO: - String -d:""
+
     @Test
     public void should_example_1() {
         Options options = Args.parse(Options.class, "-l", "-p", "8080", "-d", "/usr/logs");

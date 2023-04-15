@@ -16,6 +16,21 @@ public class ArgsTest {
     // 第一个测试用例进行功能拆分后应该需要实现的功能：
     // Single Option:
     // TODO： - Bool -l
+    @Test
+    public void should_parse_bool_option_to_true_if_present() {
+        BooleanOption option = Args.parse(BooleanOption.class, "-l");
+        assertTrue(option.logging());
+    }
+
+    @Test
+    public void should_parse_bool_option_to_false_if_present() {
+        BooleanOption option = Args.parse(BooleanOption.class);
+        assertFalse(option.logging());
+    }
+
+    static record BooleanOption(@Option("l")boolean logging) {
+    }
+
     // TODO： - Integer -p 8080
     // TODO： - String -d /usr/logs
 

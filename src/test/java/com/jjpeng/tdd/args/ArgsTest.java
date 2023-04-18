@@ -15,7 +15,7 @@ public class ArgsTest {
 
     // 第一个测试用例进行功能拆分后应该需要实现的功能：
     // Single Option:
-    // TODO： - Bool -l
+    //  - Bool -l
     @Test
     public void should_parse_bool_option_to_true_if_present() {
         BooleanOption option = Args.parse(BooleanOption.class, "-l");
@@ -32,6 +32,14 @@ public class ArgsTest {
     }
 
     // TODO： - Integer -p 8080
+    @Test
+    public void should_parse_integer_as_option_value() {
+        IntegerOption option = Args.parse(IntegerOption.class, "-p", "8080");
+        assertEquals(8080, option.port());
+    }
+
+    static record IntegerOption(@Option("p")int port) {
+    }
     // TODO： - String -d /usr/logs
 
     // Multiple Options:

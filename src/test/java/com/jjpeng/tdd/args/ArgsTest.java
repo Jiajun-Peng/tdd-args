@@ -31,7 +31,7 @@ public class ArgsTest {
     static record BooleanOption(@Option("l")boolean logging) {
     }
 
-    // TODO： - Integer -p 8080
+    // - Integer -p 8080
     @Test
     public void should_parse_integer_as_option_value() {
         IntegerOption option = Args.parse(IntegerOption.class, "-p", "8080");
@@ -40,7 +40,16 @@ public class ArgsTest {
 
     static record IntegerOption(@Option("p")int port) {
     }
+
     // TODO： - String -d /usr/logs
+    @Test
+    public void should_parse_string_as_option_value() {
+        StringOption parse = Args.parse(StringOption.class, "-d", "/usr/logs");
+        assertEquals("/usr/logs", parse.directory());
+    }
+
+    static record StringOption(@Option("d")String directory) {
+    }
 
     // Multiple Options:
     // TODO： -l -p 8080 -d /usr/logs

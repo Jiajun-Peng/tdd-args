@@ -41,22 +41,16 @@ public class Args {
     }
 
     private static Object parseString(List<String> arguments, Option option) {
-        Object value;
         int index = arguments.indexOf("-" + option.value());
-        value = arguments.get(index + 1);
-        return value;
+        return arguments.get(index + 1);
     }
 
     private static Object parseInt(List<String> arguments, Option option) {
-        Object value;
         int index = arguments.indexOf("-" + option.value());
-        value = Integer.parseInt(arguments.get(index + 1));
-        return value;
+        return Integer.parseInt(arguments.get(index + 1));
     }
 
     private static Object parseBoolean(List<String> arguments, Option option) {
-        Object value;
-        value = arguments.contains("-" + option.value());
-        return value;
+        return arguments.contains("-" + option.value());
     }
 }

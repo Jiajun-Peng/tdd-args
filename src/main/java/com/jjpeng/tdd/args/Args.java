@@ -40,6 +40,10 @@ public class Args {
         return value;
     }
 
+    interface OptionParser {
+        Object parse(List<String> arguments, Option option);
+    }
+
     private static Object parseString(List<String> arguments, Option option) {
         int index = arguments.indexOf("-" + option.value());
         return arguments.get(index + 1);
@@ -52,5 +56,13 @@ public class Args {
 
     private static Object parseBoolean(List<String> arguments, Option option) {
         return arguments.contains("-" + option.value());
+    }
+
+    static class BooleanParser implements OptionParser {
+
+        @Override
+        public Object parse(List<String> arguments, Option option) {
+            return parseBoolean(arguments, option);
+        }
     }
 }

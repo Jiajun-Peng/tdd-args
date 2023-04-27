@@ -28,23 +28,19 @@ public class Args {
         Option option = parameter.getAnnotation(Option.class);
         Object value = null;
         if (parameter.getType() == boolean.class) {
-            value = parseBoolean(arguments, option);
+            value = new BooleanParser().parse(arguments, option);
         }
         if (parameter.getType() == int.class) {
-            value = parseInt(arguments, option);
+            value = new IntegerParser().parse(arguments, option);
         }
         if (parameter.getType() == String.class) {
-            value = parseString(arguments, option);
+            value = new StringParser().parse(arguments, option);
         }
         return value;
     }
 
     interface OptionParser {
         Object parse(List<String> arguments, Option option);
-    }
-
-    private static Object parseString(List<String> arguments, Option option) {
-        return new StringParser().parse(arguments, option);
     }
 
     static class StringParser implements OptionParser {
@@ -56,10 +52,6 @@ public class Args {
         }
     }
 
-    private static Object parseInt(List<String> arguments, Option option) {
-        return new IntegerParser().parse(arguments, option);
-    }
-
     static class IntegerParser implements OptionParser {
 
         @Override
@@ -67,10 +59,6 @@ public class Args {
             int index = arguments.indexOf("-" + option.value());
             return Integer.parseInt(arguments.get(index + 1));
         }
-    }
-
-    private static Object parseBoolean(List<String> arguments, Option option) {
-        return new BooleanParser().parse(arguments, option);
     }
 
     static class BooleanParser implements OptionParser {

@@ -29,19 +29,13 @@ public class Args {
         Option option = parameter.getAnnotation(Option.class);
         Class<?> type = parameter.getType();
 
-        OptionParser parser = getOptionParser(type);
-
-        return parser.parse(arguments, option);
+        return PARSERS.get(type).parse(arguments, option);
     }
 
     private static Map<Class<?>, OptionParser> PARSERS = Map.of(
             boolean.class, new BooleanParser(),
             int.class, new IntegerParser(),
             String.class, new StringParser());
-
-    private static OptionParser getOptionParser(Class<?> type) {
-        return PARSERS.get(type);
-    }
 
     interface OptionParser {
         Object parse(List<String> arguments, Option option);

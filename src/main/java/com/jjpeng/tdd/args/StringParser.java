@@ -11,7 +11,7 @@ class StringParser implements OptionParser {
         return parseValue(value);
     }
 
-    private static String parseValue(String value) {
+    protected Object parseValue(String value) {
         return String.valueOf(value);
     }
 }

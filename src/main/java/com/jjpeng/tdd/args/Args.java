@@ -37,10 +37,6 @@ public class Args {
             int.class, new IntegerParser(),
             String.class, new StringParser());
 
-    interface OptionParser {
-        Object parse(List<String> arguments, Option option);
-    }
-
     static class StringParser implements OptionParser {
 
         @Override

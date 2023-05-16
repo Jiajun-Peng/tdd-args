@@ -34,19 +34,13 @@ public class Args {
         return parser.parse(arguments, option);
     }
 
-    private static OptionParser getOptionParser(Class<?> type) {
-        OptionParser parser = null;
+    private static Map<Class<?>, OptionParser> PARSERS = Map.of(
+            boolean.class, new BooleanParser(),
+            int.class, new IntegerParser(),
+            String.class, new StringParser());
 
-        if (type == boolean.class) {
-            parser = new BooleanParser();
-        }
-        if (type == int.class) {
-            parser = new IntegerParser();
-        }
-        if (type == String.class) {
-            parser = new StringParser();
-        }
-        return parser;
+    private static OptionParser getOptionParser(Class<?> type) {
+        return PARSERS.get(type);
     }
 
     interface OptionParser {

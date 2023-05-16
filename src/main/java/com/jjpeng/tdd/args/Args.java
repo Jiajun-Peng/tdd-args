@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author JJPeng
@@ -26,17 +27,26 @@ public class Args {
 
     private static Object parseOption(List<String> arguments, Parameter parameter) {
         Option option = parameter.getAnnotation(Option.class);
+        Class<?> type = parameter.getType();
+
+        OptionParser parser = getOptionParser(type);
+
+        return parser.parse(arguments, option);
+    }
+
+    private static OptionParser getOptionParser(Class<?> type) {
         OptionParser parser = null;
-        if (parameter.getType() == boolean.class) {
+
+        if (type == boolean.class) {
             parser = new BooleanParser();
         }
-        if (parameter.getType() == int.class) {
+        if (type == int.class) {
             parser = new IntegerParser();
         }
-        if (parameter.getType() == String.class) {
+        if (type == String.class) {
             parser = new StringParser();
         }
-        return parser.parse(arguments, option);
+        return parser;
     }
 
     interface OptionParser {

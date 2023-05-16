@@ -1,6 +1,7 @@
 package com.jjpeng.tdd.args;
 
 import java.util.List;
+import java.util.function.Function;
 
 class StringParser implements OptionParser {
 
@@ -12,6 +13,7 @@ class StringParser implements OptionParser {
     }
 
     protected Object parseValue(String value) {
-        return String.valueOf(value);
+        Function<String, Object> valueParser = String::valueOf;
+        return valueParser.apply(value);
     }
 }

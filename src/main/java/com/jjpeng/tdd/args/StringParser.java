@@ -7,6 +7,13 @@ class StringParser implements OptionParser {
 
     private Function<String, Object> valueParser = String::valueOf;
 
+    public StringParser() {
+    }
+
+    public StringParser(Function<String, Object> valueParser) {
+        this.valueParser = valueParser;
+    }
+
     @Override
     public Object parse(List<String> arguments, Option option) {
         int index = arguments.indexOf("-" + option.value());

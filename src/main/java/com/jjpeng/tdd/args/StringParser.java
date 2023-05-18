@@ -5,17 +5,10 @@ import java.util.function.Function;
 
 class StringParser implements OptionParser {
 
-    private Function<String, Object> valueParser = String::valueOf;
-
-    private StringParser() {
-    }
+    private Function<String, Object> valueParser;
 
     public StringParser(Function<String, Object> valueParser) {
         this.valueParser = valueParser;
-    }
-
-    public static OptionParser createStringParser() {
-        return new StringParser(String::valueOf);
     }
 
     @Override

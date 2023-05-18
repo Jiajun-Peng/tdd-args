@@ -64,12 +64,10 @@ public class ArgsTest {
     }
 
     // Sad path:
-    // TODO: - Bool -l t / -l t f
     // TODO: - Integer -p 8080 8081
     // TODO: - String -d / -d /usr/logs /usr/vars
 
     // default value:
-    // TODO: - Bool -l:false
     // TODO: - Integer -p:0
     // TODO: - String -d:""
 

@@ -3,11 +3,11 @@ package com.jjpeng.tdd.args;
 import java.util.List;
 import java.util.function.Function;
 
-class SingleValueOptionParser implements OptionParser {
+class SingleValueOptionParser<T> implements OptionParser {
 
-    private Function<String, Object> valueParser;
+    private Function<String, T> valueParser;
 
-    public SingleValueOptionParser(Function<String, Object> valueParser) {
+    public SingleValueOptionParser(Function<String, T> valueParser) {
         this.valueParser = valueParser;
     }
 

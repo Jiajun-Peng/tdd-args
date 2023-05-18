@@ -6,7 +6,7 @@ class IntegerParser extends StringParser {
         super(Integer::parseInt);
     }
 
-    public static IntegerParser createIntegerParser() {
-        return new IntegerParser();
+    public static OptionParser createIntegerParser() {
+        return new StringParser(Integer::parseInt);
     }
 }

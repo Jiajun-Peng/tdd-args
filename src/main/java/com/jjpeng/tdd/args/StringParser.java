@@ -7,11 +7,15 @@ class StringParser implements OptionParser {
 
     private Function<String, Object> valueParser = String::valueOf;
 
-    public StringParser() {
+    private StringParser() {
     }
 
     public StringParser(Function<String, Object> valueParser) {
         this.valueParser = valueParser;
+    }
+
+    public static OptionParser createStringParser() {
+        return new StringParser(String::valueOf);
     }
 
     @Override

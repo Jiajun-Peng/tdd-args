@@ -4,12 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BooleanOptionParserTest {
 
     // Sad path:
-    // TODO: - Bool -l t / -l t f
+    // -l t
     @Test
     public void should_not_accept_extra_argument() {
         assertThrows(TooManyArgumentsException.class, () -> {
@@ -17,8 +19,19 @@ public class BooleanOptionParserTest {
         });
     }
 
+    // -l t f
+    @Test
+    public void should_not_accept_extra_arguments() {
+        assertThrows(TooManyArgumentsException.class, () -> {
+            new BooleanOptionParser().parse(Arrays.asList("-l", "t", "f"), option("l"));
+        });
+    }
+
     // default value:
-    // TODO: - Bool -l:false
+    @Test
+    public void should_set_default_value_if_not_present() {
+        assertFalse(new BooleanOptionParser().parse(Arrays.asList(), option("l")));
+    }
 
 
     static Option option(String value) {

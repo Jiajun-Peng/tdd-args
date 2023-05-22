@@ -3,7 +3,7 @@ package com.jjpeng.tdd.args;
 import java.util.List;
 import java.util.function.Function;
 
-class SingleValueOptionParser<T> implements OptionParser {
+class SingleValueOptionParser<T> implements OptionParser<T> {
 
     private Function<String, T> valueParser;
 
@@ -12,7 +12,7 @@ class SingleValueOptionParser<T> implements OptionParser {
     }
 
     @Override
-    public Object parse(List<String> arguments, Option option) {
+    public T parse(List<String> arguments, Option option) {
         int index = arguments.indexOf("-" + option.value());
         String value = arguments.get(index + 1);
         return valueParser.apply(value);

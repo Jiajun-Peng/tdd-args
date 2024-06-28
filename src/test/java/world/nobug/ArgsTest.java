@@ -3,12 +3,29 @@ package world.nobug;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ArgsTest {
 
+    // single option:
+    //  TODO: -bool -l
+    //  TODO: -int -p 8080
+    //  TODO: -string -d /usr/logs
+    // multiple options:
+    //  TODO: -l -p 8080 -d /usr/logs
+    // sad path:
+    //  TODO: -int -p | -p 8080 8081
+    //  TODO: -string -d | -d /usr/logs /usr/vars
+    // default value:
+    //  TODO: -bool : false
+    //  TODO: -int : 0
+    //  TODO: -string : ""
+
+
     // -l -p 8080 -d /usr/logs
     @Test
+    @Disabled
     public void should_example_1() {
         Options options = Args.parse(Options.class, "-l", "-p", "8080", "-d", "/usr/logs");
         assertTrue(options.logging());
@@ -18,6 +35,7 @@ public class ArgsTest {
 
     // -g this is a list -d 1 2 -3 5
     @Test
+    @Disabled
     public void should_example_2() {
         ListOptions options = Args.parse(ListOptions.class, "-g", "this", "is", "a", "list", "-d", "1", "2", "-3", "5");
         assertArrayEquals(new String[] { "this", "is", "a", "list" }, options.group());

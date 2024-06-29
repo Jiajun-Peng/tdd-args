@@ -2,6 +2,7 @@ package world.nobug;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,17 @@ public class ArgsTest {
     static record BooleanOption(@Option("l") boolean logging) {
 
     }
+
+
+    // 很显然，使上面测试通过的实现离我们预期的结果相差甚远，想要让上面的测试失效，只需执行一个相反的测试
+    @Test
+    public void should_set_boolean_option_to_false_if_flag_not_present() {
+        BooleanOption option = Args.parse(BooleanOption.class);
+
+        assertFalse(option.logging());
+    }
+
+
 
     //  TODO: -int -p 8080
     //  TODO: -string -d /usr/logs

@@ -10,6 +10,18 @@ public class ArgsTest {
 
     // single option:
     //  TODO: -bool -l
+    @Test
+    public void should_set_boolean_option_to_true_if_flag_present() {
+        BooleanOption option = Args.parse(BooleanOption.class, "-l");
+
+        assertTrue(option.logging());
+    }
+
+    // 使用record来接收解析后的结果
+    static record BooleanOption(@Option("l") boolean logging) {
+
+    }
+
     //  TODO: -int -p 8080
     //  TODO: -string -d /usr/logs
     // multiple options:

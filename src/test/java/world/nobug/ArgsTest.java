@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class ArgsTest {
 
     // single option:
-    //  TODO: -bool -l
+    //   -bool -l
     @Test
     public void should_set_boolean_option_to_true_if_flag_present() {
         BooleanOption option = Args.parse(BooleanOption.class, "-l");

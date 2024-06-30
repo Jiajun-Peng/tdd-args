@@ -44,6 +44,17 @@ public class ArgsTest {
     }
 
     //  TODO: -string -d /usr/logs
+    @Test
+    public void should_parse_string_as_option_value() {
+        StringOption option = Args.parse(StringOption.class, "-d", "/usr/logs");
+        assertEquals("/usr/logs", option.directory());
+    }
+
+    static record StringOption(@Option("d") String directory) {
+
+    }
+
+
     // multiple options:
     //  TODO: -l -p 8080 -d /usr/logs
     // sad path:

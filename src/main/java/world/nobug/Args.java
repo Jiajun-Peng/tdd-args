@@ -35,22 +35,43 @@ public class Args {
         return value;
     }
 
+    interface OptionParser {
+        Object parse(List<String> arguments, Option option);
+    }
+
     private static Object parseString(List<String> arguments, Option option) {
-        Object value;
         int index = arguments.indexOf("-" + option.value());
-        value = arguments.get(index + 1);
-        return value;
+        return arguments.get(index + 1);
     }
 
     private static Object parseInt(List<String> arguments, Option option) {
-        Object value;
         int index = arguments.indexOf("-" + option.value());
-        value = Integer.parseInt(arguments.get(index + 1));
-        return value;
+        return Integer.parseInt(arguments.get(index + 1));
     }
 
     // 将分支中不同的地方抽取出来，使其与相同的地方隔离开
     private static boolean parseBoolean(List<String> arguments, Option option) {
         return arguments.contains("-" + option.value());
+    }
+
+    static class BooleanOptionParser implements OptionParser {
+        @Override
+        public Object parse(List<String> arguments, Option option) {
+            return parseBoolean(arguments, option);
+        }
+    }
+
+    static class IntOptionParser implements OptionParser {
+        @Override
+        public Object parse(List<String> arguments, Option option) {
+            return parseInt(arguments, option);
+        }
+    }
+
+    static class StringOptionParser implements OptionParser {
+        @Override
+        public Object parse(List<String> arguments, Option option) {
+            return parseString(arguments, option);
+        }
     }
 }

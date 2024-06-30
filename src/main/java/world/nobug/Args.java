@@ -19,20 +19,38 @@ public class Args {
         }
     }
 
+    // 预期利用多态替换条件分支
     private static Object parseOption(List<String> arguments, Parameter parameter) {
         Option option = parameter.getAnnotation(Option.class);
         Object value = null;
         if (parameter.getType() == boolean.class) {
-            value = arguments.contains("-" + option.value());
+            value = parseBoolean(arguments, option);
         }
         if (parameter.getType() == int.class) {
-            int index = arguments.indexOf("-" + option.value());
-            value = Integer.parseInt(arguments.get(index + 1));
+            value = parseInt(arguments, option);
         }
         if (parameter.getType() == String.class) {
-            int index = arguments.indexOf("-" + option.value());
-            value = arguments.get(index + 1);
+            value = parseString(arguments, option);
         }
         return value;
+    }
+
+    private static Object parseString(List<String> arguments, Option option) {
+        Object value;
+        int index = arguments.indexOf("-" + option.value());
+        value = arguments.get(index + 1);
+        return value;
+    }
+
+    private static Object parseInt(List<String> arguments, Option option) {
+        Object value;
+        int index = arguments.indexOf("-" + option.value());
+        value = Integer.parseInt(arguments.get(index + 1));
+        return value;
+    }
+
+    // 将分支中不同的地方抽取出来，使其与相同的地方隔离开
+    private static boolean parseBoolean(List<String> arguments, Option option) {
+        return arguments.contains("-" + option.value());
     }
 }

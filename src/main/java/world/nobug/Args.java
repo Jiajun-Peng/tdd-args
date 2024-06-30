@@ -22,8 +22,7 @@ public class Args {
 
     // 预期利用多态替换条件分支
     private static Object parseOption(List<String> arguments, Parameter parameter) {
-        Class<?> type = parameter.getType();
-        return PARSERS.get(type).parse(arguments, parameter.getAnnotation(Option.class));
+        return PARSERS.get(parameter.getType()).parse(arguments, parameter.getAnnotation(Option.class));
     }
 
     private static Map<Class<?>, OptionParser> PARSERS = Map.of(
@@ -31,32 +30,4 @@ public class Args {
             int.class, new IntOptionParser(),
             String.class, new StringOptionParser());
 
-    interface OptionParser {
-        Object parse(List<String> arguments, Option option);
-    }
-
-    // 将分支中不同的地方抽取出来，使其与相同的地方隔离开
-
-    static class BooleanOptionParser implements OptionParser {
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            return arguments.contains("-" + option.value());
-        }
-    }
-
-    static class IntOptionParser implements OptionParser {
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            int index = arguments.indexOf("-" + option.value());
-            return Integer.parseInt(arguments.get(index + 1));
-        }
-    }
-
-    static class StringOptionParser implements OptionParser {
-        @Override
-        public Object parse(List<String> arguments, Option option) {
-            int index = arguments.indexOf("-" + option.value());
-            return arguments.get(index + 1);
-        }
-    }
 }

@@ -32,7 +32,7 @@ public class ArgsTest {
         assertFalse(option.logging());
     }
 
-    //  TODO: -int -p 8080
+    //   -int -p 8080
     @Test
     public void should_parse_int_as_option_value() {
         IntOption option = Args.parse(IntOption.class, "-p", "8080");

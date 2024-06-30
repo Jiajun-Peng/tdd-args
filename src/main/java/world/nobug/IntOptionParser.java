@@ -1,6 +1,7 @@
 package world.nobug;
 
 import java.util.List;
+import java.util.function.Function;
 
 class IntOptionParser implements OptionParser {
     @Override
@@ -11,6 +12,7 @@ class IntOptionParser implements OptionParser {
     }
 
     protected Object parseValue(String value) {
-        return Integer.parseInt(value);
+        Function<String, Integer> valueParser = Integer::parseInt;
+        return valueParser.apply(value);
     }
 }

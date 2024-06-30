@@ -24,13 +24,13 @@ public class Args {
         Option option = parameter.getAnnotation(Option.class);
         Object value = null;
         if (parameter.getType() == boolean.class) {
-            value = parseBoolean(arguments, option);
+            value = new BooleanOptionParser().parse(arguments, option);
         }
         if (parameter.getType() == int.class) {
-            value = parseInt(arguments, option);
+            value = new IntOptionParser().parse(arguments, option);
         }
         if (parameter.getType() == String.class) {
-            value = parseString(arguments, option);
+            value = new StringOptionParser().parse(arguments, option);
         }
         return value;
     }
@@ -39,18 +39,7 @@ public class Args {
         Object parse(List<String> arguments, Option option);
     }
 
-    private static Object parseString(List<String> arguments, Option option) {
-        return new StringOptionParser().parse(arguments, option);
-    }
-
-    private static Object parseInt(List<String> arguments, Option option) {
-        return new IntOptionParser().parse(arguments, option);
-    }
-
     // 将分支中不同的地方抽取出来，使其与相同的地方隔离开
-    private static Object parseBoolean(List<String> arguments, Option option) {
-        return new BooleanOptionParser().parse(arguments, option);
-    }
 
     static class BooleanOptionParser implements OptionParser {
         @Override

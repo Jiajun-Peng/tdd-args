@@ -40,18 +40,16 @@ public class Args {
     }
 
     private static Object parseString(List<String> arguments, Option option) {
-        int index = arguments.indexOf("-" + option.value());
-        return arguments.get(index + 1);
+        return new StringOptionParser().parse(arguments, option);
     }
 
     private static Object parseInt(List<String> arguments, Option option) {
-        int index = arguments.indexOf("-" + option.value());
-        return Integer.parseInt(arguments.get(index + 1));
+        return new IntOptionParser().parse(arguments, option);
     }
 
     // 将分支中不同的地方抽取出来，使其与相同的地方隔离开
-    private static boolean parseBoolean(List<String> arguments, Option option) {
-        return arguments.contains("-" + option.value());
+    private static Object parseBoolean(List<String> arguments, Option option) {
+        return new BooleanOptionParser().parse(arguments, option);
     }
 
     static class BooleanOptionParser implements OptionParser {

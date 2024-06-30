@@ -43,7 +43,7 @@ public class ArgsTest {
 
     }
 
-    //  TODO: -string -d /usr/logs
+    //   -string -d /usr/logs
     @Test
     public void should_parse_string_as_option_value() {
         StringOption option = Args.parse(StringOption.class, "-d", "/usr/logs");

@@ -32,9 +32,17 @@ public class ArgsTest {
         assertFalse(option.logging());
     }
 
-
-
     //  TODO: -int -p 8080
+    @Test
+    public void should_parse_int_as_option_value() {
+        IntOption option = Args.parse(IntOption.class, "-p", "8080");
+        assertEquals(8080, option.port());
+    }
+
+    static record IntOption(@Option("p") int port) {
+
+    }
+
     //  TODO: -string -d /usr/logs
     // multiple options:
     //  TODO: -l -p 8080 -d /usr/logs

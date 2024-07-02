@@ -12,7 +12,7 @@ public class SingleValuedOptionParserTest {
 
     // sad path:
     //  - int -p/ -p 8080 8081
-    @Test
+    @Test// sad path
     public void should_not_accept_extra_argument_for_single_valued_option() {
         TooManyArgumentsException p = assertThrows(TooManyArgumentsException.class,
                 () -> new SingleValuedOptionParser<>(Integer::parseInt, 0)
@@ -22,7 +22,7 @@ public class SingleValuedOptionParserTest {
         assertEquals("p", p.getOption());
     }
 
-    @ParameterizedTest
+    @ParameterizedTest // sad path
     @ValueSource(strings = { "-p -l", "-p"})
     public void should_not_accept_insufficient_argument_for_single_valued_option(String args) {
         InsufficientArgumentsException e = assertThrows(InsufficientArgumentsException.class,
@@ -56,10 +56,17 @@ public class SingleValuedOptionParserTest {
 
     // default value:
     //  -int :0
-    @Test
+    @Test // default value
     public void should_set_default_value_to_0_for_int_option() {
         assertEquals(0, new SingleValuedOptionParser<>(Integer::parseInt, 0)
                 .parse(List.of(), option("p")));
+    }
+
+    // -int -p 8080
+    @Test // happy path -int -p 8080
+    public void should_parser_value_if_flag_present() {
+        assertEquals(8080, new SingleValuedOptionParser<>(Integer::parseInt, 0)
+                .parse(List.of("-p", "8080"), option("p")));
     }
 
     //  - string ""

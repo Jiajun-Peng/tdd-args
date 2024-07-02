@@ -4,6 +4,7 @@ package world.nobug;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.lang.annotation.Annotation;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ public class BooleanOptionParserTest {
 
     // sad path:
     //  -bool -l t / -l t f
-    @Test
+    @Test // sad path
     public void should_not_accept_extra_argument_for_boolean_option() {
         TooManyArgumentsException e = assertThrows(TooManyArgumentsException.class,
                 () -> new BooleanOptionParser().parse(List.of("-l", "t"), option("l")));
@@ -20,7 +21,7 @@ public class BooleanOptionParserTest {
         assertEquals("l", e.getOption());
     }
 
-    @Test
+    @Test // sad path
     public void should_not_accept_extra_arguments_for_boolean_option() {
         TooManyArgumentsException e = assertThrows(TooManyArgumentsException.class,
                 () -> new BooleanOptionParser().parse(List.of("-l", "t", "f"), option("l")));
@@ -49,8 +50,14 @@ public class BooleanOptionParserTest {
 
     // default:
     //  - bool : false
-    @Test
+    @Test // default value
     public void should_return_false_for_boolean_option_if_flag_not_present() {
         assertFalse(new BooleanOptionParser().parse(List.of(), option("l")));
+    }
+
+    //  - bool -l
+    @Test // happy path
+    public void should_set_boolean_option_to_true_if_flag_present() {
+        assertTrue(new BooleanOptionParser().parse(List.of("-l"), option("l")));
     }
 }

@@ -36,5 +36,9 @@ public class SingleValuedOptionParserTest {
 
     // default value:
     // TODO: -int :0
+    @Test
+    public void should_set_default_value_to_0_for_int_option() {
+        assertEquals(0, new SingleValuedOptionParser<>(Integer::parseInt).parse(List.of(), option("p")));
+    }
     // TODO: - string ""
 }

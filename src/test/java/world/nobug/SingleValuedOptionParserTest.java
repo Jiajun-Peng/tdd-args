@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static world.nobug.BooleanOptionParserTest.option;
 import java.util.List;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class SingleValuedOptionParserTest {
 
@@ -19,10 +21,11 @@ public class SingleValuedOptionParserTest {
         assertEquals("p", p.getOption());
     }
 
-    @Test
-    public void should_not_accept_insufficient_argument_for_single_valued_option() {
+    @ParameterizedTest
+    @ValueSource(strings = { "-p -l", "-p"})
+    public void should_not_accept_insufficient_argument_for_single_valued_option(String args) {
         InsufficientArgumentsException e = assertThrows(InsufficientArgumentsException.class,
-                () -> new SingleValuedOptionParser<>(Integer::parseInt).parse(List.of("-p"),
+                () -> new SingleValuedOptionParser<>(Integer::parseInt).parse(List.of(args.split(" ")),
                         option("p")));
 
         assertEquals("p", e.getOption());

@@ -33,6 +33,25 @@ public class SingleValuedOptionParserTest {
     }
 
     // TODO: - string -d/ -d /usr/logs /usr/vars
+    @Test
+    public void should_not_accept_extra_argument_for_string_single_valued_option() {
+        TooManyArgumentsException p = assertThrows(TooManyArgumentsException.class,
+                () -> new SingleValuedOptionParser<>(Integer::parseInt, 0)
+                        .parse(List.of("-d", "/usr/logs", "/usr/vars"),
+                                option("d")));
+
+        assertEquals("d", p.getOption());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "-d -l", "-d"})
+    public void should_not_accept_insufficient_argument_for_string_single_valued_option(String args) {
+        InsufficientArgumentsException e = assertThrows(InsufficientArgumentsException.class,
+                () -> new SingleValuedOptionParser<>(Integer::parseInt, 0).parse(List.of(args.split(" ")),
+                        option("d")));
+
+        assertEquals("d", e.getOption());
+    }
 
 
     // default value:
@@ -42,5 +61,12 @@ public class SingleValuedOptionParserTest {
         assertEquals(0, new SingleValuedOptionParser<>(Integer::parseInt, 0)
                 .parse(List.of(), option("p")));
     }
+
     // TODO: - string ""
+    @Test
+    public void should_set_default_value_to_blank_for_int_option() {
+        assertEquals("", new SingleValuedOptionParser<>(Integer::parseInt, "")
+                .parse(List.of(), option("d")));
+
+    }
 }

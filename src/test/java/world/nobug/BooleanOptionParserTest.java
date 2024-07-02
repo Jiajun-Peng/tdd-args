@@ -2,6 +2,7 @@ package world.nobug;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.lang.annotation.Annotation;
 import java.util.List;
@@ -48,4 +49,8 @@ public class BooleanOptionParserTest {
 
     // default:
     // TODO: - bool : false
+    @Test
+    public void should_return_false_for_boolean_option_if_flag_not_present() {
+        assertFalse((Boolean) new BooleanOptionParser().parse(List.of(), option("l")));
+    }
 }

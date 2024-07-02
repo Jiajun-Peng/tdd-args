@@ -69,14 +69,6 @@ public class ArgsTest {
 
     }
 
-    // sad path:
-    //  TODO: -int -p | -p 8080 8081
-    //  TODO: -string -d | -d /usr/logs /usr/vars
-    // default value:
-    //  TODO: -bool : false
-    //  TODO: -int : 0
-    //  TODO: -string : ""
-
 
     // -g this is a list -d 1 2 -3 5
     @Test

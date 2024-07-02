@@ -48,9 +48,9 @@ public class BooleanOptionParserTest {
     }
 
     // default:
-    // TODO: - bool : false
+    //  - bool : false
     @Test
     public void should_return_false_for_boolean_option_if_flag_not_present() {
-        assertFalse((Boolean) new BooleanOptionParser().parse(List.of(), option("l")));
+        assertFalse(new BooleanOptionParser().parse(List.of(), option("l")));
     }
 }

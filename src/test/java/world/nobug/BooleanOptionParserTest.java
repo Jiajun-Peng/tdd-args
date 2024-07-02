@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 public class BooleanOptionParserTest {
 
     // sad path:
-    // TODO: -bool -l t / -l t f
+    //  -bool -l t / -l t f
     @Test
     public void should_not_accept_extra_argument_for_boolean_option() {
         TooManyArgumentsException e = assertThrows(TooManyArgumentsException.class,

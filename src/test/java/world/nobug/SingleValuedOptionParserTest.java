@@ -32,7 +32,7 @@ public class SingleValuedOptionParserTest {
         assertEquals("p", e.getOption());
     }
 
-    // TODO: - string -d/ -d /usr/logs /usr/vars
+    //  - string -d/ -d /usr/logs /usr/vars
     @Test
     public void should_not_accept_extra_argument_for_string_single_valued_option() {
         TooManyArgumentsException p = assertThrows(TooManyArgumentsException.class,
@@ -62,7 +62,7 @@ public class SingleValuedOptionParserTest {
                 .parse(List.of(), option("p")));
     }
 
-    // TODO: - string ""
+    //  - string ""
     @Test
     public void should_set_default_value_to_blank_for_int_option() {
         assertEquals("", new SingleValuedOptionParser<>(Integer::parseInt, "")

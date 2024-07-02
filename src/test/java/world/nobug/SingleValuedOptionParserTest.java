@@ -19,6 +19,15 @@ public class SingleValuedOptionParserTest {
         assertEquals("p", p.getOption());
     }
 
+    @Test
+    public void should_not_accept_insufficient_argument_for_single_valued_option() {
+        InsufficientArgumentsException e = assertThrows(InsufficientArgumentsException.class,
+                () -> new SingleValuedOptionParser<>(Integer::parseInt).parse(List.of("-p"),
+                        option("p")));
+
+        assertEquals("p", e.getOption());
+    }
+
     // TODO: - string -d/ -d /usr/logs /usr/vars
 
 

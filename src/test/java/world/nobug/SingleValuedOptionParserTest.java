@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class SingleValuedOptionParserTest {
 
     // sad path:
-    // TODO: - int -p/ -p 8080 8081
+    //  - int -p/ -p 8080 8081
     @Test
     public void should_not_accept_extra_argument_for_single_valued_option() {
         TooManyArgumentsException p = assertThrows(TooManyArgumentsException.class,
@@ -36,7 +36,7 @@ public class SingleValuedOptionParserTest {
 
 
     // default value:
-    // TODO: -int :0
+    //  -int :0
     @Test
     public void should_set_default_value_to_0_for_int_option() {
         assertEquals(0, new SingleValuedOptionParser<>(Integer::parseInt, 0)

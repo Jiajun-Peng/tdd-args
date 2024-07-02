@@ -5,6 +5,7 @@ import java.util.List;
 class BooleanOptionParser implements OptionParser {
     @Override
     public Object parse(List<String> arguments, Option option) {
-        return arguments.contains("-" + option.value());
+        int index = arguments.indexOf("-" + option.value());
+        return index != -1;
     }
 }

@@ -19,6 +19,14 @@ public class BooleanOptionParserTest {
         assertEquals("l", e.getOption());
     }
 
+    @Test
+    public void should_not_accept_extra_arguments_for_boolean_option() {
+        TooManyArgumentsException e = assertThrows(TooManyArgumentsException.class,
+                () -> new BooleanOptionParser().parse(List.of("-l", "t", "f"), option("l")));
+
+        assertEquals("l", e.getOption());
+    }
+
     /*
     这个option方法是一个辅助方法，用于创建一个Option注解实例。
     在Java中，注解是不能直接实例化的，但是在测试中，我们可能需要创建注解实例来模拟实际的使用场景。

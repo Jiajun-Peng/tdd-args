@@ -16,8 +16,9 @@ class SingleValuedOptionParser<T> implements OptionParser<T> {
         this.defaultValue = defaultValue;
     }
 
-    public static <T> SingleValuedOptionParser<T> createSingleValuedOptionParser(Function<String, T> valueParser) {
-        return new SingleValuedOptionParser<T>(valueParser);
+    public static <T> SingleValuedOptionParser<T> createSingleValuedOptionParser(Function<String, T> valueParser,
+                                                                                 T defaultValue) {
+        return new SingleValuedOptionParser<T>(valueParser, defaultValue);
     }
 
     @Override

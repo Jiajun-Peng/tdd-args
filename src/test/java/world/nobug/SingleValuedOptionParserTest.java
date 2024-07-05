@@ -67,16 +67,16 @@ public class SingleValuedOptionParserTest {
                 .parse(List.of(), option("d")));
     }
 
-    // -int -p 8080
-    @Test // happy path -int -p 8080
-    public void should_parser_value_if_flag_present() {
-        assertEquals(8080, new SingleValuedOptionParser<>(Integer::parseInt, 0)
-                .parse(List.of("-p", "8080"), option("p")));
-    }
-
     @Test // happy path
-    public void should_parser_value_if_flag_present_for_string_option() {
-        assertEquals("/usr/logs", new SingleValuedOptionParser<>(String::valueOf, "")
+    public void should_parse_value_if_flag_present() {
+        Object parsed = new Object();
+        Function<String, Object> parser = (it) -> parsed;
+        Object whateverDefaultValue = new Object();
+
+        // 并不关心执行的parser是什么方法，只需要保证执行后的值是跟预期的一样就行，无论这个是String::valueOf还是Integer::parseInt
+        assertEquals(parsed, new SingleValuedOptionParser<>(parser, whateverDefaultValue)
+                .parse(List.of("-p", "8080"), option("p")));
+        assertEquals(parsed, new SingleValuedOptionParser<>(parser, whateverDefaultValue)
                 .parse(List.of("-d", "/usr/logs"), option("d")));
     }
 }

@@ -69,9 +69,12 @@ public class SingleValuedOptionParserTest {
                 .parse(List.of("-p", "8080"), option("p")));
     }
 
+    // default value:
     //  - string ""
     @Test
     public void should_set_default_value_to_blank_for_int_option() {
+        // 结合生产代码发现，对于默认值的处理，这里已经不需要使用到valueParser，而且这里引入的valueParser还是错误的，
+        // 正确的String::valueOf，而不是Integer::parseInt
         assertEquals("", new SingleValuedOptionParser<>(Integer::parseInt, "")
                 .parse(List.of(), option("d")));
 

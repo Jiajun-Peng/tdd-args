@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static world.nobug.BooleanOptionParserTest.option;
 import java.util.List;
+import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -55,11 +56,15 @@ public class SingleValuedOptionParserTest {
 
 
     // default value:
-    //  -int :0
     @Test // default value
-    public void should_set_default_value_to_0_for_int_option() {
-        assertEquals(0, new SingleValuedOptionParser<>(Integer::parseInt, 0)
+    public void should_set_default_value_for_single_valued_option() {
+        Function<String, Object> whateverValueParser = (it) -> null; // 因为并不关心valueParser的具体实现，所以这里随便写一个
+        Object defaultValue = new Object();
+        // 只需要保证原样输出，也不关心option的具体值
+        assertEquals(defaultValue, new SingleValuedOptionParser<>(whateverValueParser, defaultValue)
                 .parse(List.of(), option("p")));
+        assertEquals(defaultValue, new SingleValuedOptionParser<>(whateverValueParser, defaultValue)
+                .parse(List.of(), option("d")));
     }
 
     // -int -p 8080
@@ -67,17 +72,6 @@ public class SingleValuedOptionParserTest {
     public void should_parser_value_if_flag_present() {
         assertEquals(8080, new SingleValuedOptionParser<>(Integer::parseInt, 0)
                 .parse(List.of("-p", "8080"), option("p")));
-    }
-
-    // default value:
-    //  - string ""
-    @Test
-    public void should_set_default_value_to_blank_for_string_option() {
-        // 结合生产代码发现，对于默认值的处理，这里已经不需要使用到valueParser，而且这里引入的valueParser还是错误的，
-        // 正确的String::valueOf，而不是Integer::parseInt
-        assertEquals("", new SingleValuedOptionParser<>(Integer::parseInt, "")
-                .parse(List.of(), option("d")));
-
     }
 
     @Test // happy path
